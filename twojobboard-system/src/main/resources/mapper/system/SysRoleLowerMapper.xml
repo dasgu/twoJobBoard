@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysRoleLowerMapper">
+    
+    <resultMap type="SysRoleLower" id="SysRoleLowerResult">
+        <result property="roleId"    column="role_id"    />
+        <result property="lowerId"    column="lower_id"    />
+    </resultMap>
+
+    <sql id="selectSysRoleLowerVo">
+        select role_id, lower_id from sys_role_lower
+    </sql>
+
+    <select id="selectSysRoleLowerList" parameterType="SysRoleLower" resultMap="SysRoleLowerResult">
+        <include refid="selectSysRoleLowerVo"/>
+        <where>
+            <if test="roleId != null  and roleId != '' ">
+                and role_id = #{roleId}
+                </if>
+                <if test="lowerId != null  and lowerId != ''">
+                and lower_id = #{lowerId}
+                </if>
+
+        </where>
+    </select>
+    
+    <select id="selectSysRoleLowerByRoleId" parameterType="Long" resultMap="SysRoleLowerResult">
+        <include refid="selectSysRoleLowerVo"/>
+        where role_id = #{roleId}
+    </select>
+
+    <insert id="insertSysRoleLower" parameterType="SysRoleLower">
+        insert into sys_role_lower
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">role_id,</if>
+            <if test="lowerId != null">lower_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">#{roleId},</if>
+            <if test="lowerId != null">#{lowerId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysRoleLower" parameterType="SysRoleLower">
+        update sys_role_lower
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="lowerId != null">lower_id = #{lowerId},</if>
+        </trim>
+        where role_id = #{roleId}
+    </update>
+
+    <delete id="deleteSysRoleLowerByRoleId" parameterType="Long">
+        delete from sys_role_lower where role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteSysRoleLowerByRoleIds" parameterType="String">
+        delete from sys_role_lower where role_id in 
+        <foreach item="roleId" collection="array" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+    <insert id="batchRoleLower">
+        insert into sys_role_lower(role_id, lower_id) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.roleId},#{item.lowerId})
+        </foreach>
+    </insert>
+</mapper>

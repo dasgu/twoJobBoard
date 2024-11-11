@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysProjectJobMapper">
+    
+    <resultMap type="SysProjectJob" id="SysProjectJobResult">
+        <result property="id"    column="id"    />
+        <result property="projectInduce"    column="project_induce"    />
+        <result property="projectType"    column="project_type"    />
+        <result property="projects"    column="projects"    />
+        <result property="vehicleModel"    column="vehicle_model"    />
+        <result property="device"    column="device"    />
+        <result property="requirement"    column="requirement"    />
+        <result property="priority"    column="priority"    />
+        <result property="expectationTime"    column="expectation_time"    />
+        <result property="assignedPerson"    column="assigned_person"    />
+        <result property="implementer"    column="implementer"    />
+        <result property="issueDate"    column="issue_date"    />
+        <result property="estimateTime"    column="estimate_time"    />
+        <result property="describes"    column="describes"    />
+        <result property="jobStatus"    column="job_status"    />
+        <result property="finishTime"    column="finish_time"    />
+        <result property="results"    column="results"    />
+        <result property="remark"    column="remark"    />
+        <result property="remark1"    column="remark1"    />
+        <result property="remark2"    column="remark2"    />
+        <result property="remark3"    column="remark3"    />
+        <result property="remark4"    column="remark4"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark5"    column="remark5"    />
+        <result property="assignedPersonName"    column="assigned_person_name"    />
+        <result property="implementerName"    column="implementer_name"    />
+    </resultMap>
+
+    <sql id="selectSysProjectJobVo">
+        select id, project_induce, project_type, projects, vehicle_model, device, requirement, priority, expectation_time, assigned_person, implementer, issue_date, estimate_time, describes, job_status, finish_time, results, remark, remark1, remark2, remark3, remark4, create_by, create_time, update_by, update_time, remark5 from sys_project_job
+    </sql>
+
+    <select id="selectSysProjectJobList" parameterType="SysProjectJob" resultMap="SysProjectJobResult">
+        select id, project_induce, project_type, projects, vehicle_model,
+        device, requirement, priority, expectation_time, assigned_person,
+        implementer, issue_date, estimate_time, describes, job_status,
+        finish_time, results, remark, remark1, remark2, remark3, remark4,
+        create_by, create_time, update_by, update_time, remark5,
+        CONCAT( ua.user_name,'【',ua.nick_name,'】')
+        as assigned_person_name,
+        CONCAT( ui.user_name,'【',ui.nick_name,'】')
+        as implementer_name from sys_project_job
+        left join (select user_id,user_name,nick_name from sys_user) ua on sys_project_job.assigned_person = ua.user_id
+        left join    (select user_id,user_name,nick_name from sys_user)  ui on sys_project_job.implementer = ui.user_id
+        <where>  
+            <if test="projectInduce != null  and projectInduce != ''"> and project_induce = #{projectInduce}</if>
+            <if test="projectType != null  and projectType != ''"> and project_type = #{projectType}</if>
+            <if test="projects != null  and projects != ''"> and projects = #{projects}</if>
+            <if test="vehicleModel != null  and vehicleModel != ''"> and vehicle_model = #{vehicleModel}</if>
+            <if test="device != null  and device != ''"> and device = #{device}</if>
+            <if test="requirement != null  and requirement != ''"> and requirement = #{requirement}</if>
+            <if test="priority != null  and priority != ''"> and priority = #{priority}</if>
+            <if test="expectationTime != null "> and expectation_time = #{expectationTime}</if>
+            <if test="assignedPerson != null  and assignedPerson != ''"> and assigned_person = #{assignedPerson}</if>
+            <if test="implementer != null  and implementer != ''"> and implementer = #{implementer}</if>
+            <if test="issueDate != null "> and issue_date = #{issueDate}</if>
+            <if test="estimateTime != null  and estimateTime != ''"> and estimate_time = #{estimateTime}</if>
+            <if test="describes != null  and describes != ''"> and describes = #{describes}</if>
+            <if test="jobStatus != null  and jobStatus != ''"> and job_status = #{jobStatus}</if>
+            <if test="finishTime != null "> and finish_time = #{finishTime}</if>
+            <if test="results != null  and results != ''"> and results = #{results}</if>
+            <if test="remark1 != null  and remark1 != ''"> and remark1 = #{remark1}</if>
+            <if test="remark2 != null  and remark2 != ''"> and remark2 = #{remark2}</if>
+            <if test="remark3 != null  and remark3 != ''"> and remark3 = #{remark3}</if>
+            <if test="remark4 != null  and remark4 != ''"> and remark4 = #{remark4}</if>
+            <if test="remark5 != null  and remark5 != ''"> and remark5 = #{remark5}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysProjectJobById" parameterType="Long" resultMap="SysProjectJobResult">
+        <include refid="selectSysProjectJobVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSysProjectJob" parameterType="SysProjectJob" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_project_job
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectInduce != null and projectInduce != ''">project_induce,</if>
+            <if test="projectType != null and projectType != ''">project_type,</if>
+            <if test="projects != null">projects,</if>
+            <if test="vehicleModel != null">vehicle_model,</if>
+            <if test="device != null">device,</if>
+            <if test="requirement != null">requirement,</if>
+            <if test="priority != null">priority,</if>
+            <if test="expectationTime != null">expectation_time,</if>
+            <if test="assignedPerson != null">assigned_person,</if>
+            <if test="implementer != null">implementer,</if>
+            <if test="issueDate != null">issue_date,</if>
+            <if test="estimateTime != null">estimate_time,</if>
+            <if test="describes != null">describes,</if>
+            <if test="jobStatus != null">job_status,</if>
+            <if test="finishTime != null">finish_time,</if>
+            <if test="results != null">results,</if>
+            <if test="remark != null">remark,</if>
+            <if test="remark1 != null">remark1,</if>
+            <if test="remark2 != null">remark2,</if>
+            <if test="remark3 != null">remark3,</if>
+            <if test="remark4 != null">remark4,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark5 != null">remark5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectInduce != null and projectInduce != ''">#{projectInduce},</if>
+            <if test="projectType != null and projectType != ''">#{projectType},</if>
+            <if test="projects != null">#{projects},</if>
+            <if test="vehicleModel != null">#{vehicleModel},</if>
+            <if test="device != null">#{device},</if>
+            <if test="requirement != null">#{requirement},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="expectationTime != null">#{expectationTime},</if>
+            <if test="assignedPerson != null">#{assignedPerson},</if>
+            <if test="implementer != null">#{implementer},</if>
+            <if test="issueDate != null">#{issueDate},</if>
+            <if test="estimateTime != null">#{estimateTime},</if>
+            <if test="describes != null">#{describes},</if>
+            <if test="jobStatus != null">#{jobStatus},</if>
+            <if test="finishTime != null">#{finishTime},</if>
+            <if test="results != null">#{results},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="remark1 != null">#{remark1},</if>
+            <if test="remark2 != null">#{remark2},</if>
+            <if test="remark3 != null">#{remark3},</if>
+            <if test="remark4 != null">#{remark4},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark5 != null">#{remark5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysProjectJob" parameterType="SysProjectJob">
+        update sys_project_job
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectInduce != null and projectInduce != ''">project_induce = #{projectInduce},</if>
+            <if test="projectType != null and projectType != ''">project_type = #{projectType},</if>
+            <if test="projects != null">projects = #{projects},</if>
+            <if test="vehicleModel != null">vehicle_model = #{vehicleModel},</if>
+            <if test="device != null">device = #{device},</if>
+            <if test="requirement != null">requirement = #{requirement},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="expectationTime != null">expectation_time = #{expectationTime},</if>
+            <if test="assignedPerson != null">assigned_person = #{assignedPerson},</if>
+            <if test="implementer != null">implementer = #{implementer},</if>
+            <if test="issueDate != null">issue_date = #{issueDate},</if>
+            <if test="estimateTime != null">estimate_time = #{estimateTime},</if>
+            <if test="describes != null">describes = #{describes},</if>
+            <if test="jobStatus != null">job_status = #{jobStatus},</if>
+            <if test="finishTime != null">finish_time = #{finishTime},</if>
+            <if test="results != null">results = #{results},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="remark1 != null">remark1 = #{remark1},</if>
+            <if test="remark2 != null">remark2 = #{remark2},</if>
+            <if test="remark3 != null">remark3 = #{remark3},</if>
+            <if test="remark4 != null">remark4 = #{remark4},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark5 != null">remark5 = #{remark5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysProjectJobById" parameterType="Long">
+        delete from sys_project_job where id = #{id}
+    </delete>
+
+    <delete id="deleteSysProjectJobByIds" parameterType="String">
+        delete from sys_project_job where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
