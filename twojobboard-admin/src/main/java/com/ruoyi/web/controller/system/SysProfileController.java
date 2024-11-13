@@ -121,6 +121,8 @@ public class SysProfileController extends BaseController
         if (!file.isEmpty())
         {
             LoginUser loginUser = getLoginUser();
+            System.out.println(RuoYiConfig.getAvatarPath());
+            System.out.println(MimeTypeUtils.IMAGE_EXTENSION);
             String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file, MimeTypeUtils.IMAGE_EXTENSION);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar))
             {
