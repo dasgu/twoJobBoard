@@ -126,6 +126,7 @@ public class SysProfileController extends BaseController
             System.out.println(RuoYiConfig.getAvatarPath());
             System.out.println(MimeTypeUtils.IMAGE_EXTENSION);
             String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file, MimeTypeUtils.IMAGE_EXTENSION);
+            System.out.println(avatar);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar))
             {
                 AjaxResult ajax = AjaxResult.success();
