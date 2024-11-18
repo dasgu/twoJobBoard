@@ -75,6 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark4 != null  and remark4 != ''"> and remark4 = #{remark4}</if>
             <if test="remark5 != null  and remark5 != ''"> and remark5 = #{remark5}</if>
         </where>
+        order by id desc
     </select>
     
     <select id="selectSysProjectJobById" parameterType="Long" resultMap="SysProjectJobResult">
