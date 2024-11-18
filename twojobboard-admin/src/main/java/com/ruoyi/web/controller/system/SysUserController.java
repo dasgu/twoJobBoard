@@ -110,6 +110,8 @@ public class SysUserController extends BaseController
         {
             List<SysRole> roleList = roleService.selectRolesByUserId(userId);
             SysUser sysUser = userService.selectUserById(userId);
+            System.out.println(roleList);
+            System.out.println(sysUser);
             // 判断是否有权限查看后台
             for (SysRole role : roleList){
                 if ("Y".equals(role.getPower())){
