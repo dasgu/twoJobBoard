@@ -186,4 +186,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <select id="hr">
+        select * from sys_project_job order by id
+    </select>
 </mapper>
