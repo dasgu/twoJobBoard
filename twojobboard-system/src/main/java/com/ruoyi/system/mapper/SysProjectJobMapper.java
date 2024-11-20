@@ -2,6 +2,7 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 import com.ruoyi.system.domain.SysProjectJob;
+import com.ruoyi.system.domain.vo.YearAndMonth;
 
 /**
  * 项目任务Mapper接口
@@ -58,4 +59,6 @@ public interface SysProjectJobMapper
      * @return 结果
      */
     public int deleteSysProjectJobByIds(Long[] ids);
+
+    public List<SysProjectJob> selectSysProjectJobByYearAndMonth(YearAndMonth yearAndMonth);
 }

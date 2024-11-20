@@ -2,6 +2,7 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 import com.ruoyi.system.domain.SysProjectJob;
+import com.ruoyi.system.domain.vo.YearAndMonth;
 
 /**
  * 项目任务Service接口
@@ -58,4 +59,6 @@ public interface ISysProjectJobService
      * @return 结果
      */
     public int deleteSysProjectJobById(Long id);
+
+    public List<SysProjectJob> selectSysProjectJobByYearAndMonth(YearAndMonth yearAndMonth);
 }

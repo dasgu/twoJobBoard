@@ -187,7 +187,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <select id="hr">
-        select * from sys_project_job order by id
+    <select id="selectSysProjectJobByYearAndMonth" parameterType="YearAndMonth">
+        SELECT *
+        FROM sys_project_job
+        WHERE issue_date &gt;= #{beginDate} and issue_date &lt;= #{endDate};
     </select>
 </mapper>

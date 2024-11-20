@@ -43,6 +43,7 @@ public class SysProjectJobController extends BaseController
     {
         startPage();
         List<SysProjectJob> list = sysProjectJobService.selectSysProjectJobList(sysProjectJob);
+        System.out.println("aa:" + list.get(0).getIssueDate());
         return getDataTable(list);
     }
 
@@ -96,9 +97,16 @@ public class SysProjectJobController extends BaseController
      */
 //    @PreAuthorize("@ss.hasPermi('system:projectjob:remove')")
     @Log(title = "项目任务", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(sysProjectJobService.deleteSysProjectJobByIds(ids));
+    }
+
+    @GetMapping("/YearAndMonth")
+    public TableDataInfo yearAndMonth(SysProjectJob sysProjectJob) {
+        startPage();
+        List<SysProjectJob> list = sysProjectJobService.selectSysProjectJobList(sysProjectJob);
+        return getDataTable(list);
     }
 }

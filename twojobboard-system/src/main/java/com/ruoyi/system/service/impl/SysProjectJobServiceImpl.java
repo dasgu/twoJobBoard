@@ -2,6 +2,7 @@ package com.ruoyi.system.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.vo.YearAndMonth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SysProjectJobMapper;
@@ -93,5 +94,13 @@ public class SysProjectJobServiceImpl implements ISysProjectJobService
     public int deleteSysProjectJobById(Long id)
     {
         return sysProjectJobMapper.deleteSysProjectJobById(id);
+    }
+
+
+    @Override
+    public List<SysProjectJob> selectSysProjectJobByYearAndMonth(YearAndMonth yearAndMonth) {
+
+        List<SysProjectJob> sysProjectJobs = sysProjectJobMapper.selectSysProjectJobByYearAndMonth(yearAndMonth);
+        return sysProjectJobs;
     }
 }
