@@ -43,7 +43,7 @@ public class SysProjectJobController extends BaseController
     {
         startPage();
         List<SysProjectJob> list = sysProjectJobService.selectSysProjectJobList(sysProjectJob);
-        System.out.println("aa:" + list.get(0).getIssueDate());
+        //  System.out.println("aa:" + list.get(0).getIssueDate());
         return getDataTable(list);
     }
 
