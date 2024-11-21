@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.common.annotation.DataScope;
 import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.system.domain.Data.MemberData;
 
 /**
  * 用户 业务层
@@ -207,4 +208,6 @@ public interface ISysUserService
     public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName);
 
     List<SysUser> selectRoleUserList(SysUser sysUser);
+
+    public List<MemberData> selectMember();
 }

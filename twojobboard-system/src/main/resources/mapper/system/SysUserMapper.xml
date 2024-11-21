@@ -45,6 +45,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="dataScope"    column="data_scope"     />
         <result property="status"       column="role_status"    />
     </resultMap>
+
+	<resultMap id="MemberDataResult" type="MemberData">
+		<result property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="roleId" column="role_id" />
+		<result property="roleName" column="role_name" />
+		<result property="roleSort" column="role_sort" />
+		<result property="avatar" column="avatar" />
+	</resultMap>
+
+	<select id="selectMember" resultMap="MemberDataResult">
+		select
+			u.user_id, u.nick_name, u.sex, u.user_name, u.avatar, r.role_id, r.role_name, r.role_sort
+		from
+			sys_user u
+				inner join sys_user_role ur on (u.user_id = ur.user_id)
+				inner join sys_role r on (ur.role_id = r.role_id)
+		order by r.role_sort
+	</select>
 	
 	<sql id="selectUserVo">
         select u.user_id, u.dept_id, u.user_name, u.nick_name, u.email, u.avatar, u.phonenumber, u.password, u.sex, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, 
@@ -81,6 +102,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="deptId != null and deptId != 0">
 			AND (u.dept_id = #{deptId} OR u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE find_in_set(#{deptId}, ancestors) ))
 		</if>
+
 		<!-- 数据范围过滤 -->
 <!--&#45;&#45; 		${params.dataScope}-->
 	</select>

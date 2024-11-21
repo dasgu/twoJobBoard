@@ -3,6 +3,8 @@ package com.ruoyi.web.controller.system;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.system.domain.Data.MemberData;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -272,5 +274,13 @@ public class SysUserController extends BaseController
         sysUser.setUserId(userId);
         List<SysUser> list = userService.selectRoleUserList(sysUser);
         return list;
+    }
+
+
+    @GetMapping("/selectMember")
+    public TableDataInfo selectMember() {
+        startPage();
+        List<MemberData> list = userService.selectMember();
+        return getDataTable(list);
     }
 }
